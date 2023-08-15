@@ -1,17 +1,22 @@
 import Constants from "expo-constants";
-import { Text, StyleSheet, View, Pressable } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
 import React from "react";
 import RepositoryList from "../RepositoryList";
+import Text from "../Text";
+import AppBar from "./AppBar";
+import { Route, Routes, Navigate } from "react-router-native";
 
 const Main = () => {
   return (
     <View style={styles.container}>
+      <AppBar />
       <Pressable>
         <Text style={styles.text}>Rate Repository Application</Text>
       </Pressable>
-      <View>
-        <RepositoryList />
-      </View>
+      <Routes>
+        <Route path="/" element={<RepositoryList />} exact />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </View>
   );
 };
@@ -22,6 +27,7 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
     flexGrow: 1,
     flexShrink: 1,
+    justifyContent: "space-between",
   },
   text: {
     fontSize: 20,
