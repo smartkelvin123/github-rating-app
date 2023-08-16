@@ -13,7 +13,8 @@ const Main = () => {
       {/* <AppBar /> */}
       <View style={styles.buttonContainer}>
         <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Rate Repository Application</Text>
+          <Text style={styles.buttonText}>Repository Application</Text>
+          {/* <Text style={styles.buttonText}>Sign In</Text> */}
         </Pressable>
         <Pressable style={styles.button}>
           <Link to="/signin">

@@ -1,49 +1,97 @@
-import Text from "../Text";
-
 import React from "react";
-import { View, StyleSheet, Pressable } from "react-native";
-import { Formik } from "formik";
-// import { TextInput } from "react-native-paper";
-import FormikTextInput from "./FormikTextInput";
+import { useFormik } from "formik";
+import { View, TextInput, Button, StyleSheet, Text } from "react-native";
+import * as yup from "yup"; // Import yup
+
+const validationSchema = yup.object().shape({
+  email: yup.string().required("Email is required"),
+  age: yup.number().required("Age is required"),
+  password: yup.string().required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .required("Confirm Password is required")
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
+});
+
+const onSubmit = async (values, actions) => {
+  console.log(values);
+  console.log(actions);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  actions.resetForm();
+};
 
 const SignIn = () => {
-  const onSubmit = (values) => {
-    console.log("Form values:", values);
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      age: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: validationSchema, // Add the validation schema
+    onSubmit: onSubmit, // Existing onSubmit callback
+  });
 
   return (
     <View style={styles.container}>
-      <Formik
-        initialValues={{
-          username: "",
-          password: "",
-        }}
-        onSubmit={onSubmit}
-      >
-        {({ handleSubmit }) => (
-          <>
-            <FormikTextInput
-              style={styles.input}
-              name="username"
-              placeholder="Username"
-            />
-            <FormikTextInput
-              style={styles.input}
-              name="password"
-              placeholder="Password"
-              secureTextEntry
-            />
-            <Pressable onPress={handleSubmit} style={styles.button}>
-              <Text style={styles.buttonText}>Sign In</Text>
-            </Pressable>
-          </>
-        )}
-      </Formik>
+      <Text>Email</Text>
+      <TextInput
+        value={formik.values.email}
+        onChangeText={formik.handleChange("email")}
+        onBlur={formik.handleBlur("email")}
+        placeholder="Enter your email"
+        style={styles.input}
+      />
+      {formik.touched.email && formik.errors.email && (
+        <Text style={styles.error}>{formik.errors.email}</Text>
+      )}
+
+      <Text>Age</Text>
+      <TextInput
+        value={formik.values.age}
+        onChangeText={formik.handleChange("age")}
+        onBlur={formik.handleBlur("age")}
+        placeholder="Enter your age"
+        style={styles.input}
+      />
+      {formik.touched.age && formik.errors.age && (
+        <Text style={styles.error}>{formik.errors.age}</Text>
+      )}
+
+      <Text>Password</Text>
+      <TextInput
+        value={formik.values.password}
+        onChangeText={formik.handleChange("password")}
+        onBlur={formik.handleBlur("password")}
+        placeholder="Enter your password"
+        secureTextEntry
+        style={styles.input}
+      />
+      {formik.touched.password && formik.errors.password && (
+        <Text style={styles.error}>{formik.errors.password}</Text>
+      )}
+
+      <Text>Confirm Password</Text>
+      <TextInput
+        value={formik.values.confirmPassword}
+        onChangeText={formik.handleChange("confirmPassword")}
+        onBlur={formik.handleBlur("confirmPassword")}
+        placeholder="Confirm password"
+        secureTextEntry
+        style={styles.input}
+      />
+      {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+        <Text style={styles.error}>{formik.errors.confirmPassword}</Text>
+      )}
+
+      <Button
+        title="Submit"
+        onPress={formik.handleSubmit}
+        disabled={formik.isSubmitting}
+      />
     </View>
   );
 };
-
-export default SignIn;
 
 const styles = StyleSheet.create({
   container: {
@@ -51,15 +99,14 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    padding: 5,
   },
-  button: {
-    backgroundColor: "blue",
-    padding: 10,
-    alignItems: "center",
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
+  error: {
+    color: "red",
+    fontSize: 12,
   },
 });
+
+export default SignIn;
