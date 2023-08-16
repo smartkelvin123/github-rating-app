@@ -3,7 +3,7 @@ import Text from "../Text";
 import React from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import { Formik } from "formik";
-import { TextInput } from "react-native-paper";
+// import { TextInput } from "react-native-paper";
 import FormikTextInput from "./FormikTextInput";
 
 const SignIn = () => {

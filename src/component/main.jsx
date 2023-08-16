@@ -4,25 +4,31 @@ import React from "react";
 import RepositoryList from "../RepositoryList";
 import Text from "../Text";
 import AppBar from "./AppBar";
-import { Route, Routes, Navigate } from "react-router-native";
+import { Route, Routes, Navigate, Link } from "react-router-native";
 import SignIn from "./SignIn";
 
 const Main = () => {
   return (
     <View style={styles.container}>
-      <AppBar />
-      <Pressable>
-        <Text style={styles.text}>Rate Repository Application</Text>
-      </Pressable>
+      {/* <AppBar /> */}
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button}>
+          <Text style={styles.buttonText}>Rate Repository Application</Text>
+        </Pressable>
+        <Pressable style={styles.button}>
+          <Link to="/signin">
+            <Text style={styles.buttonText}>Sign In</Text>
+          </Link>
+        </Pressable>
+      </View>
       <Routes>
         <Route path="/" element={<RepositoryList />} exact />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <SignIn />
     </View>
   );
 };
-
 export default Main;
 const styles = StyleSheet.create({
   container: {
@@ -36,5 +42,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 10,
     backgroundColor: "blue",
+  },
+
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+  },
+  button: {
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    margin: 5,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
   },
 });
