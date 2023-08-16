@@ -5,6 +5,7 @@ import RepositoryList from "../RepositoryList";
 import Text from "../Text";
 import AppBar from "./AppBar";
 import { Route, Routes, Navigate } from "react-router-native";
+import SignIn from "./SignIn";
 
 const Main = () => {
   return (
@@ -17,6 +18,7 @@ const Main = () => {
         <Route path="/" element={<RepositoryList />} exact />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <SignIn />
     </View>
   );
 };

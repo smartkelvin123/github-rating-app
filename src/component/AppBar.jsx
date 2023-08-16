@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable, Text } from "react-native";
+import { View, StyleSheet, Pressable, Text, ScrollView } from "react-native";
 import Constants from "expo-constants";
 
 const styles = StyleSheet.create({
@@ -20,9 +20,11 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <Pressable>
-        <Text style={styles.text}>Hi kelvin</Text>
-      </Pressable>
+      <ScrollView>
+        <Pressable>
+          <Text style={styles.text}>Hi kelvin</Text>
+        </Pressable>
+      </ScrollView>
     </View>
   );
 };
