@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { FlatList, View, StyleSheet, Text, Image } from "react-native";
+import useRepositories from "./hook/useRepositories";
 
 const RepositoryList = () => {
-  const [repositories, setRepositories] = useState();
+  const { repositories } = useRepositories();
 
-  const fetchRepositories = async () => {
-    const response = await fetch();
-    ("http://192.168.198.228:5000/api/repositories");
-    const json = await response.json();
-
-    console.log(json);
-
-    setRepositories(json);
-  };
-
-  useEffect(() => {
-    fetchRepositories();
-  }, []);
-
-  // Get the nodes from the edges array
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
-
   const ItemSeparator = () => <View style={styles.separator} />;
 
   return (
