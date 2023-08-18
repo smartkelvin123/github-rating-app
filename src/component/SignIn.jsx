@@ -1,11 +1,11 @@
 import React from "react";
 import { useFormik } from "formik";
 import { View, TextInput, Button, StyleSheet, Text } from "react-native";
-import * as yup from "yup"; // Import yup
+import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Email is required"),
-  age: yup.number().required("Age is required"),
+
   password: yup.string().required("Password is required"),
   confirmPassword: yup
     .string()
@@ -24,12 +24,12 @@ const SignIn = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
-      age: "",
+
       password: "",
       confirmPassword: "",
     },
-    validationSchema: validationSchema, // Add the validation schema
-    onSubmit: onSubmit, // Existing onSubmit callback
+    validationSchema: validationSchema,
+    onSubmit: onSubmit,
   });
 
   return (
@@ -46,7 +46,7 @@ const SignIn = () => {
         <Text style={styles.error}>{formik.errors.email}</Text>
       )}
 
-      <Text>Age</Text>
+      {/* <Text>Age</Text>
       <TextInput
         value={formik.values.age}
         onChangeText={formik.handleChange("age")}
@@ -56,7 +56,7 @@ const SignIn = () => {
       />
       {formik.touched.age && formik.errors.age && (
         <Text style={styles.error}>{formik.errors.age}</Text>
-      )}
+      )} */}
 
       <Text>Password</Text>
       <TextInput
@@ -85,7 +85,7 @@ const SignIn = () => {
       )}
 
       <Button
-        title="Submit"
+        title="Sign In"
         onPress={formik.handleSubmit}
         disabled={formik.isSubmitting}
       />
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   error: {
-    color: "red",
-    fontSize: 12,
+    color: "#d73a4a",
+    fontSize: 20,
   },
 });
 
