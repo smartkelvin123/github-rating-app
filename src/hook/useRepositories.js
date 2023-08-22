@@ -1,48 +1,48 @@
-// import { useState, useEffect } from "react";
-// import { fetchRepositories } from "../graphql/queries";
-
-// const useRepositories = () => {
-//   const [repositories, setRepositories] = useState();
-//   const [loading, setLoading] = useState(false);
-
-//   useEffect(() => {
-//     async function fetchData() {
-//       setLoading(true);
-//       const data = await fetchRepositories();
-//       setRepositories(data);
-//       setLoading(false);
-//     }
-
-//     fetchData();
-//   }, []);
-
-//   return { repositories, loading };
-// };
-
-// export default useRepositories;
-
-import { useQuery, gql } from "@apollo/client";
-import { GET_REPOSITORIES } from "../graphql/queries";
+import { useState, useEffect } from "react";
+import { fetchRepositories } from "../graphql/queries";
 
 const useRepositories = () => {
-  const { loading, error, data } = useQuery(GET_REPOSITORIES);
+  const [repositories, setRepositories] = useState();
+  const [loading, setLoading] = useState(false);
 
-  if (loading) {
-    console.log("Loading repositories...");
-    return { loading };
-  }
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const data = await fetchRepositories();
+      setRepositories(data);
+      setLoading(false);
+    }
 
-  if (error) {
-    console.error("Error fetching repositories:", error);
-    return { error };
-  }
+    fetchData();
+  }, []);
 
-  console.log("Repositories data:", data);
-
-  return { repositories: data.repositories };
+  return { repositories, loading };
 };
 
 export default useRepositories;
+
+// import { useQuery, gql } from "@apollo/client";
+// import { GET_REPOSITORIES } from "../graphql/queries";
+
+// const useRepositories = () => {
+//   const { loading, error, data } = useQuery(GET_REPOSITORIES);
+
+//   if (loading) {
+//     console.log("Loading repositories...");
+//     return { loading };
+//   }
+
+//   if (error) {
+//     console.error("Error fetching repositories:", error);
+//     return { error };
+//   }
+
+//   console.log("Repositories data:", data);
+
+//   return { repositories: data.repositories };
+// };
+
+// export default useRepositories;
 
 // import { useState, useEffect } from "react";
 
