@@ -8,7 +8,7 @@ const useRepositories = () => {
     setLoading(true);
 
     const response = await fetch(
-      "http://192.168.198.228:5000/api/repositories"
+      "http://192.168.137.228:5000/api/repositories"
     );
     const json = await response.json();
 

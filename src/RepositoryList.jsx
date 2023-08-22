@@ -80,8 +80,26 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   language: {
-    color: "green",
-    fontWeight: "bold",
-    fontSize: 14,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#007bff",
+    color: "white",
+    marginRight: 10,
+    borderWidth: 5,
+    borderRadius: 4,
   },
 });
+
+//  dont forget to check on this later
+// #contact-form button {
+//   padding: 8px 16px;
+//   border: none;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   background-color: #007bff;
+//   color: white;
+//   margin-right: 10px;
+// }
+//  #contact-form button[type="submit"] {
+//   background-color: #28a745;
+// }
