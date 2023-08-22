@@ -1,27 +1,96 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
+// import { fetchRepositories } from "../graphql/queries";
+
+// const useRepositories = () => {
+//   const [repositories, setRepositories] = useState();
+//   const [loading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     async function fetchData() {
+//       setLoading(true);
+//       const data = await fetchRepositories();
+//       setRepositories(data);
+//       setLoading(false);
+//     }
+
+//     fetchData();
+//   }, []);
+
+//   return { repositories, loading };
+// };
+
+// export default useRepositories;
+
+import { useQuery, gql } from "@apollo/client";
+import { GET_REPOSITORIES } from "../graphql/queries";
 
 const useRepositories = () => {
-  const [repositories, setRepositories] = useState();
-  const [loading, setLoading] = useState(false);
+  const { loading, error, data } = useQuery(GET_REPOSITORIES);
 
-  const fetchRepositories = async () => {
-    setLoading(true);
+  if (loading) {
+    console.log("Loading repositories...");
+    return { loading };
+  }
 
-    const response = await fetch(
-      "http://192.168.137.228:5000/api/repositories"
-    );
-    const json = await response.json();
+  if (error) {
+    console.error("Error fetching repositories:", error);
+    return { error };
+  }
 
-    console.log(json);
+  console.log("Repositories data:", data);
 
-    setRepositories(json);
-  };
-
-  useEffect(() => {
-    fetchRepositories();
-  }, []);
-
-  return { repositories, loading, refetch: fetchRepositories };
+  return { repositories: data.repositories };
 };
 
 export default useRepositories;
+
+// import { useState, useEffect } from "react";
+
+// const useRepositories = () => {
+//   const [repositories, setRepositories] = useState();
+//   const [loading, setLoading] = useState(false);
+
+//   const fetchRepositories = async () => {
+//     setLoading(true);
+
+//     const response = await fetch("http://192.168.42.228:4000/graphql", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         query: `
+//           query {
+//             repositories {
+//               edges {
+//                 node {
+//                   id
+//                   fullName
+//                   description
+//                   language
+//                   forksCount
+//                   stargazersCount
+//                   ratingAverage
+//                   reviewCount
+//                   ownerAvatarUrl
+//                 }
+//               }
+//             }
+//           }
+//         `,
+//       }),
+//     });
+
+//     const json = await response.json();
+//     setRepositories(json.data.repositories);
+//     setLoading(false);
+//   };
+
+//   useEffect(() => {
+//     fetchRepositories();
+//   }, []);
+
+//   return { repositories, loading, refetch: fetchRepositories };
+// };
+
+// export default useRepositories;

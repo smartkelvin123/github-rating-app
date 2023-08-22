@@ -1,13 +1,20 @@
 import React from "react";
 import { FlatList, View, StyleSheet, Text, Image } from "react-native";
+// import useRepositories from "./hook/useRepositories";
 import useRepositories from "./hook/useRepositories";
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const { repositories, loading } = useRepositories();
 
-  const repositoryNodes = repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+
+  const repositoryNodes =
+    repositories && Array.isArray(repositories.edges)
+      ? repositories.edges.map((edge) => edge.node)
+      : [];
+
   const ItemSeparator = () => <View style={styles.separator} />;
 
   return (

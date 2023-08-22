@@ -3,7 +3,7 @@ import { StyleSheet, View, Pressable } from "react-native";
 import React from "react";
 import RepositoryList from "../RepositoryList";
 import Text from "../Text";
-import AppBar from "./AppBar";
+
 import { Route, Routes, Navigate, Link } from "react-router-native";
 import SignIn from "./SignIn";
 
