@@ -1,4 +1,4 @@
-const API_URL = process.env.EXPO_PUBLIC_API_URL;
+// const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export const fetchRepositories = async () => {
   const response = await fetch("http://192.168.182.228:4000/graphql", {
