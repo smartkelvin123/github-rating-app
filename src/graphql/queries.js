@@ -1,5 +1,8 @@
+const API_URL = process.env.EXPO_PUBLIC_API_URL;
+
 export const fetchRepositories = async () => {
-  const response = await fetch("http://192.168.42.228:4000/graphql", {
+  const response = await fetch("http://192.168.182.228:4000/graphql", {
+    // const response = await fetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,6 +34,7 @@ export const fetchRepositories = async () => {
   return json.data.repositories;
 };
 
+// cannot not fetch
 // import { gql } from "@apollo/client";
 
 // export const GET_REPOSITORIES = gql`
