@@ -1,5 +1,3 @@
-// const APOLLO_URI = process.env.APOLLO_URI;/
-
 export const fetchRepositories = async (apolloUri) => {
   try {
     const response = await fetch("http://192.168.47.228:4000/graphql", {

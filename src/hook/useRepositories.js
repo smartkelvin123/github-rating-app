@@ -1,29 +1,65 @@
 import { useState, useEffect } from "react";
 import { fetchRepositories } from "../graphql/queries";
-// import Constants from "expo-constants";
+import Constants from "expo-constants";
 
 const useRepositories = () => {
   const [repositories, setRepositories] = useState();
   const [loading, setLoading] = useState(false);
 
-  // const apolloUri = Constants.expoConfig.extra.APOLLO_URI;
-
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const data = await fetchRepositories();
-      setRepositories(data);
-      setLoading(false);
+
+      const apiURL = Constants.manifest.extra.EXPO_PUBLIC_API_URL;
+
+      try {
+        const data = await fetchRepositories(apiURL);
+        setRepositories(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching repositories:", error);
+        setLoading(false);
+      }
     }
 
     fetchData();
   }, []);
-  // }, [apolloUri]);
 
   return { repositories, loading };
 };
 
 export default useRepositories;
+
+// this is the boundary
+
+// import { useState, useEffect } from "react";
+// import { fetchRepositories } from "../graphql/queries";
+// // import Constants from "expo-constants";
+
+// const useRepositories = () => {
+//   const [repositories, setRepositories] = useState();
+//   const [loading, setLoading] = useState(false);
+
+//   // const apolloUri = Constants.expoConfig.extra.APOLLO_URI;
+
+//   useEffect(() => {
+//     async function fetchData() {
+//       setLoading(true);
+//       const data = await fetchRepositories();
+//       setRepositories(data);
+//       setLoading(false);
+//     }
+
+//     fetchData();
+//   }, []);
+//   // }, [apolloUri]);
+
+//   return { repositories, loading };
+// };
+
+// export default useRepositories;
+
+// this is the boundary
 
 // import { useQuery, gql } from "@apollo/client";
 // import { GET_REPOSITORIES } from "../graphql/queries";
