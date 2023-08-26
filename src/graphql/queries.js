@@ -1,14 +1,14 @@
-// const API_URL = process.env.EXPO_PUBLIC_API_URL;
+// const APOLLO_URI = process.env.APOLLO_URI;/
 
-export const fetchRepositories = async () => {
-  const response = await fetch("http://192.168.182.228:4000/graphql", {
-    // const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query: `
+export const fetchRepositories = async (apolloUri) => {
+  try {
+    const response = await fetch("http://192.168.47.228:4000/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `
         query {
           repositories {
             edges {
@@ -27,11 +27,18 @@ export const fetchRepositories = async () => {
           }
         }
       `,
-    }),
-  });
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data. Status: ${response.status}`);
+    }
 
-  const json = await response.json();
-  return json.data.repositories;
+    const json = await response.json();
+    return json.data.repositories;
+  } catch (error) {
+    console.error("Error fetching repositories:", error);
+    throw error; // Re-throw the error so the caller can handle it
+  }
 };
 
 // cannot not fetch

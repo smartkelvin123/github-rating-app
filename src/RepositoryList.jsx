@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, View, StyleSheet, Text, Image } from "react-native";
-// import useRepositories from "./hook/useRepositories";
+
 import useRepositories from "./hook/useRepositories";
 
 const RepositoryList = () => {

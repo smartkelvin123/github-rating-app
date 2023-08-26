@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-
 import { fetchRepositories } from "../graphql/queries";
+// import Constants from "expo-constants";
 
 const useRepositories = () => {
   const [repositories, setRepositories] = useState();
   const [loading, setLoading] = useState(false);
+
+  // const apolloUri = Constants.expoConfig.extra.APOLLO_URI;
 
   useEffect(() => {
     async function fetchData() {
@@ -16,6 +18,7 @@ const useRepositories = () => {
 
     fetchData();
   }, []);
+  // }, [apolloUri]);
 
   return { repositories, loading };
 };
