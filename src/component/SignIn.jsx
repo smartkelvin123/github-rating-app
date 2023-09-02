@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
+import useSignIn from "../hook/useSignIn";
 import { View, TextInput, Button, StyleSheet, Text } from "react-native";
 import * as yup from "yup";
 
@@ -13,25 +14,30 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
-const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
-};
-
 const SignIn = () => {
+  const [signIn] = useSignIn();
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+
+    try {
+      const response = await signIn({ username, password });
+      const { data } = response;
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
-
       password: "",
       confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: onSubmit,
   });
-
   return (
     <View style={styles.container}>
       <Text>Email</Text>
@@ -45,18 +51,6 @@ const SignIn = () => {
       {formik.touched.email && formik.errors.email && (
         <Text style={styles.error}>{formik.errors.email}</Text>
       )}
-
-      {/* <Text>Age</Text>
-      <TextInput
-        value={formik.values.age}
-        onChangeText={formik.handleChange("age")}
-        onBlur={formik.handleBlur("age")}
-        placeholder="Enter your age"
-        style={styles.input}
-      />
-      {formik.touched.age && formik.errors.age && (
-        <Text style={styles.error}>{formik.errors.age}</Text>
-      )} */}
 
       <Text>Password</Text>
       <TextInput
