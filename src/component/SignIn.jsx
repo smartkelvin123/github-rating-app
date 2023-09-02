@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import useSignIn from "../hook/useSignIn";
 import { View, TextInput, Button, StyleSheet, Text } from "react-native";
 import * as yup from "yup";
+import AuthStorage from "../utils/authStorage";
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Email is required"),
@@ -17,28 +18,32 @@ const validationSchema = yup.object().shape({
 const SignIn = () => {
   const [signIn] = useSignIn();
 
-  const onSubmit = async (values) => {
-    const { username, password, email } = values;
-
-    try {
-      const accessToken = await signIn({ username, password, email });
-
-      console.log("Sign-in succesful, Access token:", accessToken);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const formik = useFormik({
     initialValues: {
-      email: "",
       username: "",
       password: "",
+      email: "",
       confirmPassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: onSubmit,
+    onSubmit: async (values) => {
+      const { username, password } = values;
+      try {
+        const response = await signIn({ username, password });
+        const { data } = response;
+        if (data && data.authorize.accessToken) {
+          // Authentication succeeded, access token is in data.authorize.accessToken
+          console.log("Access Token:", data.authorize.accessToken);
+          await AuthStorage.setAccessToken(data.authorize.accessToken);
+        } else {
+          console.log("Authentication failed.");
+        }
+      } catch (error) {
+        console.error("Authentication error:", error);
+      }
+    },
   });
+
   return (
     <View style={styles.container}>
       <Text>Email</Text>

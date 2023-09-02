@@ -11,6 +11,8 @@ const useSignIn = () => {
           credentials: {
             username,
             password,
+            // email,
+            // confirmpassword,
           },
         },
       });
