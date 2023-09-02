@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchRepositories } from "../graphql/queries";
-import Constants from "expo-constants";
+// import Constants from "expo-constants";
 
 const useRepositories = () => {
   const [repositories, setRepositories] = useState();
@@ -10,10 +10,12 @@ const useRepositories = () => {
     async function fetchData() {
       setLoading(true);
 
-      const apiURL = Constants.manifest.extra.EXPO_PUBLIC_API_URL;
+      // const apiURL = Constants.manifest.extra.EXPO_PUBLIC_API_URL;
 
       try {
-        const data = await fetchRepositories(apiURL);
+        const data = await fetchRepositories();
+        // const data = await fetchRepositories(apiURL);
+
         setRepositories(data);
         setLoading(false);
       } catch (error) {
