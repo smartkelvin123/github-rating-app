@@ -6,7 +6,7 @@ import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Email is required"),
-
+  username: yup.string().required("username is required"),
   password: yup.string().required("Password is required"),
   confirmPassword: yup
     .string()
@@ -18,12 +18,12 @@ const SignIn = () => {
   const [signIn] = useSignIn();
 
   const onSubmit = async (values) => {
-    const { username, password } = values;
+    const { username, password, email } = values;
 
     try {
-      const response = await signIn({ username, password });
-      const { data } = response;
-      console.log(data);
+      const accessToken = await signIn({ username, password, email });
+
+      console.log("Sign-in succesful, Access token:", accessToken);
     } catch (e) {
       console.log(e);
     }
@@ -32,6 +32,7 @@ const SignIn = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
+      username: "",
       password: "",
       confirmPassword: "",
     },
@@ -50,6 +51,19 @@ const SignIn = () => {
       />
       {formik.touched.email && formik.errors.email && (
         <Text style={styles.error}>{formik.errors.email}</Text>
+      )}
+
+      <Text>Username</Text>
+      <TextInput
+        value={formik.values.username}
+        onChangeText={formik.handleChange("username")}
+        onBlur={formik.handleBlur("username")}
+        placeholder="username"
+        // secureTextEntry
+        style={styles.input}
+      />
+      {formik.touched.username && formik.errors.username && (
+        <Text style={styles.error}>{formik.errors.username}</Text>
       )}
 
       <Text>Password</Text>

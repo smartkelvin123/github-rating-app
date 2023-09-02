@@ -14,7 +14,6 @@ const Main = () => {
       <View style={styles.buttonContainer}>
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>Repository Application</Text>
-          {/* <Text style={styles.buttonText}>Sign In</Text> */}
         </Pressable>
         <Pressable style={styles.button}>
           <Link to="/signin">
@@ -25,7 +24,7 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<RepositoryList />} exact />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </View>
   );
