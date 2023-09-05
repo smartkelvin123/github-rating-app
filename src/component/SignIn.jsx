@@ -17,6 +17,7 @@ const validationSchema = yup.object().shape({
 
 const SignIn = () => {
   const [signIn] = useSignIn();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -32,9 +33,9 @@ const SignIn = () => {
         const response = await signIn({ username, password });
         const { data } = response;
         if (data && data.authorize.accessToken) {
-          // Authentication succeeded, access token is in data.authorize.accessToken
           console.log("Access Token:", data.authorize.accessToken);
           await AuthStorage.setAccessToken(data.authorize.accessToken);
+          navigate("/repositories");
         } else {
           console.log("Authentication failed.");
         }
