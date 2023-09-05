@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import useSignIn from "../hook/useSignIn";
 import { View, TextInput, Button, StyleSheet, Text } from "react-native";
 import * as yup from "yup";
 import AuthStorage from "../utils/authStorage";
+import { useNavigate } from "react-router-native";
+import { IconButton } from "react-native-paper";
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Email is required"),
-  username: yup.string().required("username is required"),
+  username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
   confirmPassword: yup
     .string()
@@ -18,6 +20,7 @@ const validationSchema = yup.object().shape({
 const SignIn = () => {
   const [signIn] = useSignIn();
   const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -64,13 +67,16 @@ const SignIn = () => {
         value={formik.values.username}
         onChangeText={formik.handleChange("username")}
         onBlur={formik.handleBlur("username")}
-        placeholder="username"
-        // secureTextEntry
+        placeholder="Username"
         style={styles.input}
       />
       {formik.touched.username && formik.errors.username && (
         <Text style={styles.error}>{formik.errors.username}</Text>
       )}
+      <IconButton
+        icon={passwordVisible ? "eye-off" : "eye"}
+        onPress={() => setPasswordVisible(!passwordVisible)}
+      />
 
       <Text>Password</Text>
       <TextInput
@@ -78,7 +84,7 @@ const SignIn = () => {
         onChangeText={formik.handleChange("password")}
         onBlur={formik.handleBlur("password")}
         placeholder="Enter your password"
-        secureTextEntry
+        secureTextEntry={!passwordVisible}
         style={styles.input}
       />
       {formik.touched.password && formik.errors.password && (
@@ -91,7 +97,7 @@ const SignIn = () => {
         onChangeText={formik.handleChange("confirmPassword")}
         onBlur={formik.handleBlur("confirmPassword")}
         placeholder="Confirm password"
-        secureTextEntry
+        secureTextEntry={!passwordVisible}
         style={styles.input}
       />
       {formik.touched.confirmPassword && formik.errors.confirmPassword && (
