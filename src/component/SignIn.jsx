@@ -50,7 +50,6 @@ const SignIn = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Email</Text>
       <TextInput
         value={formik.values.email}
         onChangeText={formik.handleChange("email")}
@@ -62,7 +61,6 @@ const SignIn = () => {
         <Text style={styles.error}>{formik.errors.email}</Text>
       )}
 
-      <Text>Username</Text>
       <TextInput
         value={formik.values.username}
         onChangeText={formik.handleChange("username")}
@@ -78,7 +76,6 @@ const SignIn = () => {
         onPress={() => setPasswordVisible(!passwordVisible)}
       />
 
-      <Text>Password</Text>
       <TextInput
         value={formik.values.password}
         onChangeText={formik.handleChange("password")}
@@ -91,7 +88,6 @@ const SignIn = () => {
         <Text style={styles.error}>{formik.errors.password}</Text>
       )}
 
-      <Text>Confirm Password</Text>
       <TextInput
         value={formik.values.confirmPassword}
         onChangeText={formik.handleChange("confirmPassword")}
