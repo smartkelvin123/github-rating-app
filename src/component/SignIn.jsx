@@ -38,6 +38,10 @@ const SignIn = () => {
         if (data && data.authorize.accessToken) {
           console.log("Access Token:", data.authorize.accessToken);
           await AuthStorage.setAccessToken(data.authorize.accessToken);
+
+          // Reset the Apollo Client's store
+          await apolloClient.resetStore();
+
           navigate("/repositories");
         } else {
           console.log("Authentication failed.");

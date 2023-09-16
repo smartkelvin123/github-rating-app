@@ -1,6 +1,6 @@
 export const fetchRepositories = async (apolloUri) => {
   try {
-    const response = await fetch("http://192.168.118.228:4000/graphql", {
+    const response = await fetch("http://192.168.160.228:4000/graphql", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const fetchRepositories = async (apolloUri) => {
     return json.data.repositories;
   } catch (error) {
     console.error("Error fetching repositories:", error);
-    throw error; // Re-throw the error so the caller can handle it
+    throw error;
   }
 };
 
