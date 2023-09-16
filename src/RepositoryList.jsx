@@ -4,11 +4,7 @@ import { FlatList, View, StyleSheet, Text, Image } from "react-native";
 import useRepositories from "./hook/useRepositories";
 
 const RepositoryList = () => {
-  const { repositories, loading } = useRepositories();
-
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
+  const { repositories } = useRepositories();
 
   const repositoryNodes =
     repositories && Array.isArray(repositories.edges)
