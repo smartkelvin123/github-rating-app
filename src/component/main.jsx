@@ -4,15 +4,21 @@ import React from "react";
 import RepositoryList from "../RepositoryList";
 import Text from "../Text";
 
-import { Route, Routes, Navigate, Link } from "react-router-native";
+import { Route, Routes, Link, useNavigate } from "react-router-native";
 import SignIn from "./SignIn";
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  const handleRepoAppPress = () => {
+    navigate("/");
+  };
+
   return (
     <View style={styles.container}>
       {/* <AppBar /> */}
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={handleRepoAppPress}>
           <Text style={styles.buttonText}>Repository Application</Text>
         </Pressable>
         <Pressable style={styles.button}>
