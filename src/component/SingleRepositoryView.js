@@ -2,13 +2,13 @@ import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { useParams } from "react-router-native";
 import { useQuery } from "@apollo/client";
-import RepositoryItem from "../RepositoryItem";
-// import { REPOSITORY } from '../graphql/queries';
+import * as Linking from "expo-linking";
 import { fetchRepositories } from "../graphql/queries";
 
 const SingleRepositoryView = () => {
   const { id } = useParams();
-  const { loading, error, data } = useQuery(fetchRepositories, {
+
+  const { data, loading } = useQuery(fetchRepositories, {
     variables: { id },
   });
 
@@ -16,22 +16,32 @@ const SingleRepositoryView = () => {
     return <Text>Loading...</Text>;
   }
 
-  if (error) {
-    console.error("Error fetching repository data:", error);
-    return <Text>Error loading data</Text>;
+  const repository = data ? data.repository : null;
+
+  if (!repository) {
+    return <Text>Repository not found</Text>;
   }
 
-  const repository = data.repository;
-
-  const openInGitHub = () => {
-    Linking.openURL(repository.url);
+  const openGitHubRepository = () => {
+    if (repository.url) {
+      Linking.openURL(repository.url);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <RepositoryItem repository={repository} />{" "}
-      {/* Reuse RepositoryItem if needed */}
-      <Button title="Open in GitHub" onPress={openInGitHub} />
+      <View>
+        <Text style={styles.fullName}>{repository.fullName}</Text>
+        <Text>{repository.description}</Text>
+        <Text>Language: {repository.language}</Text>
+        <Text>Stars: {repository.stargazersCount}</Text>
+        <Text>Forks: {repository.forksCount}</Text>
+        <Text>Rating: {repository.ratingAverage}</Text>
+        <Text>Reviews: {repository.reviewCount}</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Open on GitHub" onPress={openGitHubRepository} />
+      </View>
     </View>
   );
 };
@@ -39,6 +49,13 @@ const SingleRepositoryView = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+  },
+  fullName: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  buttonContainer: {
+    marginTop: 16,
   },
 });
 
