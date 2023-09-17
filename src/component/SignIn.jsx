@@ -75,22 +75,24 @@ const SignIn = () => {
       {formik.touched.username && formik.errors.username && (
         <Text style={styles.error}>{formik.errors.username}</Text>
       )}
-      <IconButton
-        icon={passwordVisible ? "eye-off" : "eye"}
-        onPress={() => setPasswordVisible(!passwordVisible)}
-      />
 
-      <TextInput
-        value={formik.values.password}
-        onChangeText={formik.handleChange("password")}
-        onBlur={formik.handleBlur("password")}
-        placeholder="Enter your password"
-        secureTextEntry={!passwordVisible}
-        style={styles.input}
-      />
-      {formik.touched.password && formik.errors.password && (
-        <Text style={styles.error}>{formik.errors.password}</Text>
-      )}
+      <View style={styles.passwordContainer}>
+        <TextInput
+          value={formik.values.password}
+          onChangeText={formik.handleChange("password")}
+          onBlur={formik.handleBlur("password")}
+          placeholder="Enter your password"
+          secureTextEntry={!passwordVisible}
+          style={styles.input}
+        />
+        {formik.touched.password && formik.errors.password && (
+          <Text style={styles.error}>{formik.errors.password}</Text>
+        )}
+        <IconButton
+          icon={passwordVisible ? "eye-off" : "eye"}
+          onPress={() => setPasswordVisible(!passwordVisible)}
+        />
+      </View>
 
       <TextInput
         value={formik.values.confirmPassword}
@@ -126,6 +128,10 @@ const styles = StyleSheet.create({
   error: {
     color: "#d73a4a",
     fontSize: 20,
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
