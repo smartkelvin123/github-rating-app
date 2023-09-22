@@ -31,6 +31,7 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<RepositoryList />} exact />
         <Route path="/signin" element={<SignIn />} />
+        {/* <Route path="/repository/:id" element={<SingleRepositoryView />} /> */}
         <Route path="/repository/:id" component={SingleRepositoryView} />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
@@ -69,3 +70,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+// bxbxggsgsgsgs
