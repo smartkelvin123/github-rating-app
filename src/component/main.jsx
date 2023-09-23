@@ -4,6 +4,7 @@ import React from "react";
 import RepositoryList from "../RepositoryList";
 import Text from "../Text";
 import SingleRepositoryView from "./SingleRepositoryView";
+import CreateReviewScreen from "./CreateReviewScreen";
 
 import { Route, Routes, Link, useNavigate } from "react-router-native";
 import SignIn from "./SignIn";
@@ -13,6 +14,10 @@ const Main = () => {
 
   const handleRepoAppPress = () => {
     navigate("/");
+  };
+
+  const handleCreateReviewPress = () => {
+    navigate("/create-review"); // Navigate to the CreateReviewScreen
   };
 
   return (
@@ -27,13 +32,16 @@ const Main = () => {
             <Text style={styles.buttonText}>Sign In</Text>
           </Link>
         </Pressable>
+        <Pressable style={styles.button} onPress={handleCreateReviewPress}>
+          {/* Use handleCreateReviewPress to navigate */}
+          <Text style={styles.buttonText}>Create Review</Text>
+        </Pressable>
       </View>
       <Routes>
         <Route path="/" element={<RepositoryList />} exact />
         <Route path="/signin" element={<SignIn />} />
-        {/* <Route path="/repository/:id" element={<SingleRepositoryView />} /> */}
         <Route path="/repository/:id" component={SingleRepositoryView} />
-        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+        <Route path="/create-review" element={<CreateReviewScreen />} />
       </Routes>
     </View>
   );
@@ -70,4 +78,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-// bxbxggsgsgsgs
