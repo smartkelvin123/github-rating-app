@@ -6,7 +6,7 @@ import {
   Text,
   Image,
   Pressable,
-  Button, // Import Button component from react-native
+  Button,
 } from "react-native";
 import { useNavigate } from "react-router-native";
 import useRepositories from "./hook/useRepositories";
@@ -53,11 +53,13 @@ const RepositoryList = () => {
                 <Text>Reviews: {item.reviewCount}</Text>
               </View>
             </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Open in GitHub"
+                onPress={() => handleRepositoryPress(item.id)}
+              />
+            </View>
           </View>
-          <Button
-            title="Open in GitHub"
-            onPress={() => handleRepositoryPress(item.id)}
-          />
         </View>
       )}
       keyExtractor={(item) => item.id}
@@ -107,5 +109,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 4,
     width: 100,
+  },
+  buttonContainer: {
+    marginTop: 10,
   },
 });
