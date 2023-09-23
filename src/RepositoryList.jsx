@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   Pressable,
+  Button, // Import Button component from react-native
 } from "react-native";
 import { useNavigate } from "react-router-native";
 import useRepositories from "./hook/useRepositories";
@@ -30,32 +31,34 @@ const RepositoryList = () => {
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => (
-        <Pressable onPress={() => handleRepositoryPress(item.id)}>
-          <View style={styles.repositoryContainer}>
-            <View>
-              <Image
-                source={{ uri: item.ownerAvatarUrl }}
-                style={styles.avatar}
-              />
+        <View style={styles.repositoryContainer}>
+          <View>
+            <Image
+              source={{ uri: item.ownerAvatarUrl }}
+              style={styles.avatar}
+            />
+          </View>
+          <View style={styles.infoContainer}>
+            <View style={styles.nameContainer}>
+              <Text style={styles.repositoryTitle}>{item.id} </Text>
+              <Text style={styles.repositoryTitle}> - {item.fullName}</Text>
             </View>
-            <View style={styles.infoContainer}>
-              <View style={styles.nameContainer}>
-                <Text style={styles.repositoryTitle}>{item.id} </Text>
-                <Text style={styles.repositoryTitle}> - {item.fullName}</Text>
-              </View>
-              <Text>{item.description}</Text>
-              <View style={styles.repositoryDescription}>
-                <Text style={styles.language}> {item.language}</Text>
-                <View style={styles.rating}>
-                  <Text>Forks: {item.forksCount}</Text>
-                  <Text>Stars: {item.stargazersCount}</Text>
-                  <Text>Ratings: {item.ratingAverage}</Text>
-                  <Text>Reviews: {item.reviewCount}</Text>
-                </View>
+            <Text>{item.description}</Text>
+            <View style={styles.repositoryDescription}>
+              <Text style={styles.language}> {item.language}</Text>
+              <View style={styles.rating}>
+                <Text>Forks: {item.forksCount}</Text>
+                <Text>Stars: {item.stargazersCount}</Text>
+                <Text>Ratings: {item.ratingAverage}</Text>
+                <Text>Reviews: {item.reviewCount}</Text>
               </View>
             </View>
           </View>
-        </Pressable>
+          <Button
+            title="Open in GitHub"
+            onPress={() => handleRepositoryPress(item.id)}
+          />
+        </View>
       )}
       keyExtractor={(item) => item.id}
     />
