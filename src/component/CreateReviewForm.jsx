@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Button, TextInput, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -22,13 +22,29 @@ const validationSchema = yup.object().shape({
 });
 
 const CreateReviewForm = ({ onSubmit }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleFormSubmit = async (values, { setSubmitting }) => {
+    setIsSubmitting(true);
+    await onSubmit(values);
+    setIsSubmitting(false);
+    setSubmitting(false);
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={handleFormSubmit}
     >
-      {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+        isSubmitting,
+      }) => (
         <View style={styles.container}>
           <TextInput
             style={styles.input}
@@ -48,7 +64,6 @@ const CreateReviewForm = ({ onSubmit }) => {
             onBlur={handleBlur("repositoryName")}
             value={values.repositoryName}
           />
-
           {errors.repositoryName && (
             <Text style={styles.error}>{errors.repositoryName}</Text>
           )}
@@ -61,7 +76,6 @@ const CreateReviewForm = ({ onSubmit }) => {
             value={values.rating}
             keyboardType="numeric"
           />
-
           {errors.rating && <Text style={styles.error}>{errors.rating}</Text>}
 
           <TextInput
@@ -96,11 +110,7 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "#d73a4a",
-    fontSize: 20,
-  },
-  passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    fontSize: 16,
   },
 });
 
