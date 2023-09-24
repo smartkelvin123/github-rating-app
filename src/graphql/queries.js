@@ -1,6 +1,6 @@
 export const fetchRepositories = async (apolloUri) => {
   try {
-    const response = await fetch("http://192.168.28.228:4000/graphql", {
+    const response = await fetch("http://192.168.57.228:4000/graphql", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
