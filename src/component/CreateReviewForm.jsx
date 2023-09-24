@@ -73,7 +73,11 @@ const CreateReviewForm = ({ onSubmit }) => {
             multiline
           />
 
-          <Button title="Submit" onPress={handleSubmit} />
+          <Button
+            title={isSubmitting ? "Submitting..." : "Submit"}
+            onPress={handleSubmit}
+            disabled={isSubmitting}
+          />
         </View>
       )}
     </Formik>
