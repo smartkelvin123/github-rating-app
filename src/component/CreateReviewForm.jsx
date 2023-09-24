@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, TextInput, Text } from "react-native";
+import { View, Button, TextInput, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 
@@ -29,38 +29,43 @@ const CreateReviewForm = ({ onSubmit }) => {
       onSubmit={onSubmit}
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-        <View>
-          {/* Input fields */}
-          {/* Owner's GitHub Username */}
+        <View style={styles.container}>
           <TextInput
+            style={styles.input}
             placeholder="Owner's GitHub Username"
             onChangeText={handleChange("ownerUsername")}
             onBlur={handleBlur("ownerUsername")}
             value={values.ownerUsername}
           />
-          {errors.ownerUsername && <Text>{errors.ownerUsername}</Text>}
+          {errors.ownerUsername && (
+            <Text style={styles.error}>{errors.ownerUsername}</Text>
+          )}
 
-          {/* Repository Name */}
           <TextInput
+            style={styles.input}
             placeholder="Repository Name"
             onChangeText={handleChange("repositoryName")}
             onBlur={handleBlur("repositoryName")}
             value={values.repositoryName}
           />
-          {errors.repositoryName && <Text>{errors.repositoryName}</Text>}
 
-          {/* Rating */}
+          {errors.repositoryName && (
+            <Text style={styles.error}>{errors.repositoryName}</Text>
+          )}
+
           <TextInput
+            style={styles.input}
             placeholder="Rating (0-100)"
             onChangeText={handleChange("rating")}
             onBlur={handleBlur("rating")}
             value={values.rating}
             keyboardType="numeric"
           />
-          {errors.rating && <Text>{errors.rating}</Text>}
 
-          {/* Review */}
+          {errors.rating && <Text style={styles.error}>{errors.rating}</Text>}
+
           <TextInput
+            style={styles.input}
             placeholder="Review (optional)"
             onChangeText={handleChange("review")}
             onBlur={handleBlur("review")}
@@ -74,5 +79,25 @@ const CreateReviewForm = ({ onSubmit }) => {
     </Formik>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  input: {
+    marginBottom: 10,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    padding: 5,
+  },
+  error: {
+    color: "#d73a4a",
+    fontSize: 20,
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});
 
 export default CreateReviewForm;
