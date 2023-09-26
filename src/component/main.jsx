@@ -17,7 +17,7 @@ const Main = () => {
   };
 
   const handleCreateReviewPress = () => {
-    navigate("/create-review"); // Navigate to the CreateReviewScreen
+    navigate("/create-review");
   };
 
   return (
@@ -33,7 +33,6 @@ const Main = () => {
           </Link>
         </Pressable>
         <Pressable style={styles.button} onPress={handleCreateReviewPress}>
-          {/* Use handleCreateReviewPress to navigate */}
           <Text style={styles.buttonText}>Create Review</Text>
         </Pressable>
       </View>
